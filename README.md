@@ -33,4 +33,4 @@ Criar um .txt com os dados de todos professores ativos do IC. (Victor)\
 Criar um .txt com os dados das salas do IC. (Victor)\
 Refazer os arquivos .txt dos alunos e das matérias. (Victor)\
 Criar uma função para ler os dados dos professores do IC. (Erasmo)\
-Crar uma estrutura, ou modificar uma já existente que aponte à disciplina aos professores.\
+Crar uma estrutura, ou modificar uma já existente que aponte à disciplina aos professores.
