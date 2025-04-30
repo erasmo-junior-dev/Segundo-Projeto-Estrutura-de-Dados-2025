@@ -16,7 +16,7 @@ typedef struct Professor{
 } Professor;
 
 typedef struct Sala{
-    int num_sala;
+    char nome_sala[50];
     int capacidade;
     char tipo_sala[50];
 } Sala;
