@@ -18,7 +18,7 @@ void preverDependencias(No *head, Aluno *aluno)
     {
         bool podeCursar = true;
         int periodoDisciplina = aux->data->periodo;
-        if (periodoDisciplina <= aluno->periodo)
+        if (periodoDisciplina <= aluno->periodo || periodoDisciplina == 0)
         {
             if (aux->data->qntPR != -1)
             {

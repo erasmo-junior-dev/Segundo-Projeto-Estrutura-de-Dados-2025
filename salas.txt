@@ -1,0 +1,8 @@
+sala-0;100;auditorio;
+sala-1;80;auditorio;
+laboratorio-1;60;laboratorio;
+laboratorio-2;40;laboratorio;
+laboratorio-3;30;laboratorio;
+sala-2;40;sala-de-aula;
+sala-3;40;sala-de-aula;
+sala-3;40;sala-de-aula;
