@@ -15,7 +15,7 @@ void associarCoReq(No *materia, No *co_req_materia)
     co_req_materia->data->co_req = materia->data;
 }
 
-void carregarDados(No *head)
+No* carregarDados(No *head)
 {
     FILE *materias = fopen("materias.txt", "r");
 
@@ -57,11 +57,16 @@ void carregarDados(No *head)
         dado = strtok(NULL, ";");
         strcpy(newNode->data->area, dado);
 
+        dado = strtok(NULL, ";");
+        strcpy(newNode->data->area, dado);
+
         dado = strtok(NULL, "\r\n");
         newNode->data->periodo = atoi(dado);
+
         newNode->data->qntPR = -1;
         newNode->data->qntCR = -1;
-        newNode->data->alunosDependentes = 0;
+        if (newNode->data->periodo != 1) newNode->data->alunosDependentes = 0;
+        else newNode->data->alunosDependentes = 40;
 
         if (head == NULL) head = newNode;
         else
@@ -117,7 +122,7 @@ void carregarDados(No *head)
 
     fclose(materias);
 
-    return;   
+    return head;   
 }
 
 #endif

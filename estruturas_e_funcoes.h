@@ -33,6 +33,20 @@ typedef struct node
     struct node *next;
 } No;
 
+typedef struct Professor{
+    char nome[256];
+    No *lista_materias;   
+    char titulacao[50];
+    struct Professor *proximo;
+} Professor;
+
+typedef struct Sala{
+    char nome_sala[50];
+    int capacidade;
+    char tipo_sala[50];
+    struct Sala *proxima;
+} Sala;
+
 No* CreateNewNode()
 {
     return NULL;

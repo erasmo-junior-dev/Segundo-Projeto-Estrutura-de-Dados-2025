@@ -30,7 +30,6 @@ Gerar uma oferta de disciplina de matérias do IC, com dias e horários definido
 > Vamos fazer o input já ordenado, para não precisar usar uma função de ordenação.
 
 - [x] Criar um .txt com os dados de todos professores ativos do IC. (Victor)
-- [ ] Criar um .txt com os dados das salas do IC. (Victor)
-- [ ] Refazer os arquivos .txt dos alunos e das matérias. (Victor)
+- [x] Criar um .txt com os dados das salas do IC. (Victor)
 - [ ] Criar uma função para ler os dados dos professores do IC. (Erasmo)
 - [x] Crar uma estrutura, ou modificar uma já existente que aponte à disciplina aos professores. (Victor)

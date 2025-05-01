@@ -6,8 +6,8 @@ int main()
 {
     No *disciplinas = CreateNewNode();
 
-    carregarDados(disciplinas);
-    controleHistoricoAluno();
+    disciplinas = carregarDados(disciplinas);
+    controleHistoricoAluno(disciplinas);
 
     return 0;
 }
