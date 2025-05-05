@@ -47,6 +47,13 @@ typedef struct Sala{
     struct Sala *proxima;
 } Sala;
 
+typedef struct RelacaoSalaMateriaProfessor{
+    Sala *sala;
+    No *materia;
+    Professor *professor;
+    struct RelacaoSalaMateriaProfessor *proxima;
+} RelacaoSalaMateriaProfessor;
+
 No* CreateNewNode()
 {
     return NULL;
