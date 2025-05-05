@@ -2,6 +2,7 @@
 #include "ler_dados_materias.h"
 #include "ler_dados_aluno.h"
 #include "ler_dados_professores.h"
+#include "atribuicao_salas.h"
 
 int main()
 {
