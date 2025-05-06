@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "estruturas_e_funcoes.h": "c"
+    }
+}
