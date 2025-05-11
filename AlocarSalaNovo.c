@@ -35,15 +35,34 @@ bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No 
 
         inserirRelacao(pRel, s, m);
 
+        m->data->alunosDependentes -= s->capacidade;
+
         return true;
     }
     return false;
+}
+
+Sala* SelecionaMelhorSalaTaxaObrigatoria(Sala* s, Materias* m){
+    Sala* melhor = NULL;
+    double melhorTaxa = -1.0;
+
+    while (s != NULL){
+        double taxa = (double)m->alunosDependentes / s->capacidade;
+        if(taxa > melhorTaxa){
+            melhorTaxa = taxa;
+            melhor = s;
+        }
+        s = s->proxima;   
+    }
+    
+    return melhor;
 }
 
 void AlocarSala(No *headMaterias, Sala *headSalas, RelacaoSalaMateriaProfessor **pRel)
 {
     for (No *m = headMaterias; m; m = m->next) {
         bool alocou = false;
+
         double minTaxa = strcmp(m->data->tipo, "OBRIGATORIO") == 0 ? 0.75 : 0.50;
 
         bool isComputacao = strcmp(m->data->area, "COMPUTACAO") == 0;
@@ -51,7 +70,18 @@ void AlocarSala(No *headMaterias, Sala *headSalas, RelacaoSalaMateriaProfessor *
         alocou = selecionarESalvar(headMaterias, pRel, m, headSalas, minTaxa, isComputacao);
         
         if (!alocou) {
-            //ainda n fiz essa lógica
+            if(isComputacao && minTaxa == 0.75){
+                selecionarESalvar(headMaterias,pRel,m,headSalas,minTaxa,false);
+            }
+            if(minTaxa == 0.75){
+                Sala* melhorSala = SelecionaMelhorSalaTaxaObrigatoria(headSalas,m);
+                if(melhorSala != NULL){
+                    inserirRelacao(pRel,melhorSala,m);
+                }
+            }
+        }
+        else if(m->data->alunosDependentes > 0){
+            selecionarESalvar(headMaterias,pRel,m,headSalas,0.50,isComputacao);
         }
     }
 }
