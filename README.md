@@ -11,7 +11,7 @@ Gerar uma oferta de disciplina de matérias do IC, com dias e horários definido
 - O professor pode ministrar no máximo 3 disciplinas por semestre.
 - Pode dividir uma disciplina entre mais de um professor.
 - O professor deve ser alocado no menor número de dias possíveis.
-- As ênfases tem a maior prioridade.
+- As obrigatórias tem a maior prioridade.
 
 ### Tasks:
 
@@ -35,5 +35,5 @@ Gerar uma oferta de disciplina de matérias do IC, com dias e horários definido
 - [x] Criar uma estrutura, ou modificar uma já existente que aponte à disciplina aos professores. (Victor)
 - [x] Criar uma estrutura que faça a ligação entre sala, professor e disciplina. (Erasmo)
 - [x] Criar uma função de conflito de horário (Erasmo)
-- [ ] Criar estruturas condicionais para a função de atribuição de salas (Victor)
-- [ ] Criar o loop da função de atribuição de salas (Erasmo)
+- [x] Criar estruturas condicionais para a função de atribuição de salas (Victor)
+- [x] Criar o loop da função de atribuição de salas (Erasmo)
