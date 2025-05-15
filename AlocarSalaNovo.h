@@ -21,9 +21,8 @@ void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
         *pRel = novo;
     } 
     else{
-        RelacaoSalaMateriaProfessor *t = *pRel;
-        while (t->proxima) t = t->proxima;
-        t->proxima = novo;
+        novo->proxima = *pRel;
+        *pRel = novo;
     }
 }
 
