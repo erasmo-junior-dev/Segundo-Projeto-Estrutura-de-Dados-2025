@@ -18,13 +18,12 @@ Professor* carregarDadosProfessores(No *head)
         char *token = strtok(getLinha, ";");
 
         strcpy(new_prof->nome, token);
-
         
         while ((token = strtok(NULL, ";")) != NULL) 
         {
-            if (strncmp(token, "TITULO:", 7) == 0) 
+            if (strncmp(token, "AREA:", 5) == 0) 
             {
-                strcpy(new_prof->titulacao, token + 7);
+                strcpy(new_prof->titulacao, token + 5);
                 new_prof->titulacao[strcspn(new_prof->titulacao, "\n")] = '\0';
                 break;
             }
@@ -36,6 +35,9 @@ Professor* carregarDadosProfessores(No *head)
             nova_disc->next = new_prof->lista_materias;
             new_prof->lista_materias = nova_disc;
         }
+
+        new_prof->disciplinasMinistradas = 0;
+        new_prof->lista_disciplinas_ministradas = NULL;
 
         new_prof->proximo = newProfessor;
         newProfessor = new_prof;

@@ -4,6 +4,7 @@
 #include "ler_dados_professores.h"
 #include "atribuicao_salas.h"
 #include "AlocarSalaNovo.h"
+#include "AlocarProfessores.h"
 
 int main()
 {
@@ -18,10 +19,14 @@ int main()
 
     RelacaoSalaMateriaProfessor *output = NULL;
     AlocarSala(lista_de_disciplinas, lista_de_salas, &output);
+    escolherProfessorMateria(output, lista_de_professores);
 
+    #ifndef DEBUG
     for (RelacaoSalaMateriaProfessor *p = output; p != NULL; p = p->proxima) {
-        printf("Sala: %s, Materia: %s\n", p->sala->nome_sala, p->materia->data->no_comp);
+        printf("Sala: %s, Materia: %s %s, Professor: %s\n", p->sala->nome_sala, p->materia->data->no_comp, p->materia->data->horario, p->professor->nome);
 }
+
+    #endif
 
 
     return 0;

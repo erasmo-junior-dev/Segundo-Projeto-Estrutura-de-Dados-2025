@@ -37,6 +37,8 @@ typedef struct Professor{
     char nome[256];
     No *lista_materias;   
     char titulacao[50];
+    int disciplinasMinistradas;
+    No *lista_disciplinas_ministradas;
     struct Professor *proximo;
 } Professor;
 

@@ -29,27 +29,32 @@ void inserirRelacao(RelacaoSalaMateriaProfessor **pRel, Sala *s, No *m){
 bool selecionarESalvar(No *headMaterias, RelacaoSalaMateriaProfessor **pRel, No *m, Sala *headSalas, double minTaxa, bool labFilter)
 {
     for (Sala *s = headSalas; s; s = s->proxima) {
-        if (labFilter && strcmp(s->tipo_sala, "laboratorio") != 0) continue;
+        if (labFilter && strcmp(s->tipo_sala, "laboratorio") != 0)
+            continue;
 
         double taxa = (double)m->data->alunosDependentes / s->capacidade;
-        if (taxa < minTaxa) continue;
-        else if (taxa > 1.0) continue;
+        if (taxa < minTaxa || taxa > 1.0)
+            continue;
 
-        RelacaoSalaMateriaProfessor *aux = *pRel;
-
-        if (aux != NULL){
-            while (aux && strcmp(aux->sala->nome_sala, s->nome_sala) != 0){
-                aux = aux->proxima;
+        bool conflito = false;
+        for (RelacaoSalaMateriaProfessor *aux = *pRel; aux != NULL; aux = aux->proxima) {
+            if (strcmp(aux->sala->nome_sala, s->nome_sala) == 0) {
+                if (!verificarDisponibilidadeHorario(aux->materia, *m->data)) {
+                    conflito = true;
+                    break;
+                }
             }
-
-            if (aux && !verificarDisponibilidadeHorario(aux->materia, *m->data)) continue;
         }
+
+        if (conflito)
+            continue;
 
         inserirRelacao(pRel, s, m);
         m->data->alunosDependentes -= s->capacidade;
 
         return true;
     }
+
     return false;
 }
 
@@ -61,25 +66,26 @@ Sala* SelecionaMelhorSalaTaxaObrigatoria(Sala* s, Materias* m, RelacaoSalaMateri
     while (s != NULL){
         double taxa = (double)m->alunosDependentes / s->capacidade;
         if(taxa > melhorTaxa){
-            RelacaoSalaMateriaProfessor *aux = *pRel;
+            bool conflito = false;
 
-            if (aux != NULL){
-                while (aux && strcmp(aux->sala->nome_sala, s->nome_sala) != 0){
-                    aux = aux->proxima;
-                }
-
-                if (aux && !verificarDisponibilidadeHorario(aux->materia, *m)) {
-                    s = s->proxima;
-                    continue;
+            for (RelacaoSalaMateriaProfessor *aux = *pRel; aux != NULL; aux = aux->proxima) {
+                if (strcmp(aux->sala->nome_sala, s->nome_sala) == 0) {
+                    if (!verificarDisponibilidadeHorario(aux->materia, *m)) {
+                        conflito = true;
+                        break;
+                    }
                 }
             }
 
-            melhorTaxa = taxa;
-            melhor = s;
+            if (!conflito) {
+                melhorTaxa = taxa;
+                melhor = s;
+            }
         }
-        s = s->proxima;   
+
+        s = s->proxima;
     }
-    
+
     return melhor;
 }
 
