@@ -97,7 +97,7 @@ void AlocarSala(No *headMaterias, Sala *headSalas, RelacaoSalaMateriaProfessor *
 
         double minTaxa = strcmp(m->data->tipo, "OBRIGATORIO") == 0 ? 0.75 : 0.50;
 
-        bool isComputacao = strcmp(m->data->area, "COMPUTACAO") == 0;
+        bool isComputacao = !(strcmp(m->data->area, "CAL") == 0 || strcmp(m->data->area, "TE") == 0 || strcmp(m->data->area, "AU") == 0);
 
         alocou = selecionarESalvar(headMaterias, pRel, m, headSalas, minTaxa, isComputacao);
         
