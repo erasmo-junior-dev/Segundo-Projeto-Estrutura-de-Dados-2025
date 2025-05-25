@@ -71,6 +71,4 @@ No* SearchElement(char *cod_comp, No *head)
     }
 }
 
-OptativasEnfase optativas[4];
-
 #endif

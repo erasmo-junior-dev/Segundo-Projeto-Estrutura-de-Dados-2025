@@ -3,6 +3,9 @@
 
 #include "estruturas_e_funcoes.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 
 typedef struct Aluno
 {
@@ -11,21 +14,21 @@ typedef struct Aluno
     No *disciplinasCursadas;
 } Aluno;
 
-void preverDependencias(No *head, Aluno *aluno)
+void preverDependencias(No *head, Aluno *aluno, OptativasEnfase *o)
 {
     No *aux = head;
     while (aux != NULL)
     {
         bool podeCursar = true;
         int periodoDisciplina = aux->data->periodo;
+
         if (periodoDisciplina <= aluno->periodo || periodoDisciplina == 0)
         {
             if (aux->data->qntPR != -1)
             {
-                for (int i = 0; i <= aux->data->qntPR; i++)
+                for (int i = 0; i < aux->data->qntPR; i++)
                 {
                     No *aux2 = SearchElement(aux->data->pre_req[i]->cod_comp, aluno->disciplinasCursadas);
-
                     if (aux2 == NULL)
                     {
                         podeCursar = false;
@@ -40,9 +43,32 @@ void preverDependencias(No *head, Aluno *aluno)
 
         aux = aux->next;
     }
+
+    int i = 0;
+    while (strcmp(aluno->enfase, o[i].enfase) != 0) i++;
+
+    for (int j = 0; j < 5; j++)
+    {
+        bool podeCursar = true;
+
+        if (o[i].optativas[j]->qntPR != -1)
+        {
+            for (int k = 0; k < o[i].optativas[j]->qntPR; k++)
+            {
+                No *aux2 = SearchElement(o[i].optativas[j]->pre_req[k]->cod_comp, aluno->disciplinasCursadas);
+                if (aux2 == NULL)
+                {
+                    podeCursar = false;
+                    break;
+                }
+            }
+        }
+
+        if (SearchElement(o[i].optativas[j]->cod_comp, aluno->disciplinasCursadas) == NULL && podeCursar) o[i].optativas[j]->alunosDependentes++;
+    }
 }
 
-void inputHistorico(FILE *historico, No *head)
+void inputHistorico(FILE *historico, No *head, OptativasEnfase *o)
 {
     Aluno aluno;
     char getLinha[100];
@@ -59,8 +85,6 @@ void inputHistorico(FILE *historico, No *head)
     aluno.disciplinasCursadas = NULL;
     while (fgets(getLinha, sizeof(getLinha), historico) != NULL)
     {
-        No *disciplina;
-
         char *token = strtok(getLinha, ";");
         char cod_comp[10];
         strcpy(cod_comp, token);
@@ -73,40 +97,39 @@ void inputHistorico(FILE *historico, No *head)
 
         if (nota >= 7.0)
         {
-            disciplina = SearchElement(cod_comp, head);
-            No *aux = (No*) malloc(sizeof(No));
-            *aux = *disciplina;
-            aux->next = aluno.disciplinasCursadas;
-            aluno.disciplinasCursadas = aux;
+            No *disciplina = SearchElement(cod_comp, head);
+            if (disciplina != NULL)
+            {
+                No *aux = (No *)malloc(sizeof(No));
+                *aux = *disciplina;
+                aux->next = aluno.disciplinasCursadas;
+                aluno.disciplinasCursadas = aux;
+            }
         }
+
         memset(getLinha, 0, sizeof(getLinha));
     }
 
-    preverDependencias(head, &aluno);
+    preverDependencias(head, &aluno, o);
 }
 
-void controleHistoricoAluno(No *head)
+void controleHistoricoAluno(No *head, OptativasEnfase *o)
 {
     int id_aluno = 1;
-    char nome_arquivo[16];
-    memset(nome_arquivo, 0, sizeof(nome_arquivo));
-    strcpy(nome_arquivo, "historico_");
-    nome_arquivo[10] = id_aluno + '0';
-    strcat(nome_arquivo, ".txt");
+    char nome_arquivo[64];
 
+    sprintf(nome_arquivo, "historico_%d.txt", id_aluno);
     FILE *historico = fopen(nome_arquivo, "r");
+
     while (historico != NULL)
     {
-        inputHistorico(historico, head);
+        inputHistorico(historico, head, o);
         fclose(historico);
 
         id_aluno++;
-        nome_arquivo[10] = id_aluno + '0';
-
+        sprintf(nome_arquivo, "historico_%d.txt", id_aluno);
         historico = fopen(nome_arquivo, "r");
     }
-
-    return;
 }
 
 #endif

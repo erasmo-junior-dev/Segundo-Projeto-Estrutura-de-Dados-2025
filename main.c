@@ -5,15 +5,20 @@
 #include "atribuicao_salas.h"
 #include "AlocarSalaNovo.h"
 #include "AlocarProfessores.h"
+#include "optativas.h"
 
 int main()
 {
     No *lista_de_disciplinas = CreateNewNode();
     lista_de_disciplinas = carregarDados(lista_de_disciplinas);
 
+    OptativasEnfase optativas[4];
+
+    optativa(lista_de_disciplinas, optativas);
+
     Sala *lista_de_salas = carregarDadosSalas();
 
-    controleHistoricoAluno(lista_de_disciplinas);
+    controleHistoricoAluno(lista_de_disciplinas, optativas);
 
     Professor *lista_de_professores = carregarDadosProfessores(lista_de_disciplinas);
 
