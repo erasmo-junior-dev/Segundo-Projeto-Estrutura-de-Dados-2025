@@ -32,6 +32,8 @@ void escolherProfessorMateria(RelacaoSalaMateriaProfessor *relacao, Professor *p
 {
     RelacaoSalaMateriaProfessor *aux = relacao;
 
+    while (aux->materia->data->periodo < 4) aux = aux->proxima;
+
     while (aux->materia->data->periodo > 4 || aux->materia->data->optativo == true)
     {
         Professor *prof = professor;
