@@ -7,6 +7,16 @@
 #include "AlocarProfessores.h"
 #include "optativas.h"
 
+void output_func(RelacaoSalaMateriaProfessor *p, FILE *output)
+{
+    if (p == NULL) return;
+
+    output_func(p->proxima, output);
+
+    printf("Sala: %s, Materia: %s %s, Professor: %s\n", p->sala->nome_sala, p->materia->data->no_comp, p->materia->data->horario, p->professor->nome);
+    fprintf(output, "Sala: %s, Materia: %s %s, Professor: %s\n", p->sala->nome_sala, p->materia->data->no_comp, p->materia->data->horario, p->professor->nome);
+}
+
 int main()
 {
     No *lista_de_disciplinas = CreateNewNode();
@@ -26,13 +36,9 @@ int main()
     AlocarSala(lista_de_disciplinas, lista_de_salas, &output);
     escolherProfessorMateria(output, lista_de_professores);
 
-    #ifndef DEBUG
-    for (RelacaoSalaMateriaProfessor *p = output; p != NULL; p = p->proxima) {
-        printf("Sala: %s, Materia: %s %s, Professor: %s\n", p->sala->nome_sala, p->materia->data->no_comp, p->materia->data->horario, p->professor->nome);
-}
+    FILE *output_txt = fopen("oferta.txt", "w");
 
-    #endif
-
+    output_func(output, output_txt);
 
     return 0;
 }
