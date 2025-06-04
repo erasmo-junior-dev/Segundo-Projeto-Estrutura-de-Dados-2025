@@ -1,11 +1,9 @@
-# BRANCH DE TESTES
+# SEGUNDO PROJETO DE ESTRUTURA DE DADOS
 
-## Segundo Projeto de ED
-
-### Objetivo:
+## Objetivo:
 Gerar uma oferta de disciplina de matérias do IC, com dias e horários definidos respeitando os requisitos a partir da disponibilidade de professores da matéria e do histórico dos alunos.
 
-### Requisitos:
+## Requisitos:
 
 - Usar apenas estruturas dinâmicas.
 - O professor pode ministrar no máximo 3 disciplinas por semestre.
@@ -13,7 +11,7 @@ Gerar uma oferta de disciplina de matérias do IC, com dias e horários definido
 - O professor deve ser alocado no menor número de dias possíveis.
 - As obrigatórias tem a maior prioridade.
 
-### Tasks:
+## Tasks:
 
 - [x] Reaproveitar a função de input de dados e de histórico. (Erasmo)
 > [!NOTE]
